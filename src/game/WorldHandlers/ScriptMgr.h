@@ -82,6 +82,7 @@ enum ScriptedObjectType
     SCRIPTED_CONDITION      = 11,   //ConditionScript
     SCRIPTED_ACHIEVEMENT    = 12,   //AchievementScript
     SCRIPTED_WORLD          = 13,   //WorldScript
+    SCRIPTED_PLAYER         = 14,   //PlayerScript
     SCRIPTED_MAX_TYPE
 };
 
@@ -680,6 +681,7 @@ class ScriptMgr
         bool OnGameObjectUse(Unit* pUnit, GameObject* pGameObject);
         bool OnItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& targets);
         void SetInitialWorldSettings();
+        void OnPlayerLogin(Player* pPlayer, bool firstLogin);
         bool OnAreaTrigger(Player* pPlayer, AreaTriggerEntry const* atEntry);
         bool OnProcessEvent(uint32 eventId, Object* pSource, Object* pTarget, bool isStart);
         bool OnEffectDummy(Unit* pCaster, uint32 spellId, SpellEffectIndex effIndex, Unit* pTarget, ObjectGuid originalCasterGuid);

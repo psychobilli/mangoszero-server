@@ -933,6 +933,8 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
     /* Used for looting */
     pCurrChar->lastTimeLooted = time(NULL);
 
+    sScriptMgr->OnPlayerLogin(pCurrChar, pCurrChar->HasAtLoginFlag(AT_LOGIN_FIRST));
+
     delete holder;
 }
 

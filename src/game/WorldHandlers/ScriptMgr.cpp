@@ -2864,6 +2864,11 @@ void ScriptMgr::SetInitialWorldSettings()
     return SD3::SetInitialWorldSettings();
 }
 
+void ScriptMgr::OnPlayerLogin(Player* pPlayer, bool firstLogin)
+{
+    return SD3::OnPlayerLogin(pPlayer, firstLogin);
+}
+
 bool ScriptMgr::OnAreaTrigger(Player* pPlayer, AreaTriggerEntry const* atEntry)
 {
     // Used by Eluna
