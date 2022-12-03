@@ -2859,6 +2859,11 @@ bool ScriptMgr::OnItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& 
 #endif
 }
 
+void ScriptMgr::SetInitialWorldSettings()
+{
+    return SD3::SetInitialWorldSettings();
+}
+
 bool ScriptMgr::OnAreaTrigger(Player* pPlayer, AreaTriggerEntry const* atEntry)
 {
     // Used by Eluna

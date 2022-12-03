@@ -1490,6 +1490,10 @@ void World::SetInitialWorldSettings()
     sAuctionBot.Initialize();
     sLog.outString();
 
+    sLog.outString("Initialize VAS Autobalance...");
+    sScriptMgr.SetInitialWorldSettings();
+    sLog.outString();
+
 #ifdef ENABLE_ELUNA
     ///- Run eluna scripts.
     // in multithread foreach: run scripts
