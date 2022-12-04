@@ -747,6 +747,8 @@ void Creature::Update(uint32 update_diff, uint32 diff)
         default:
             break;
     }
+
+    sScriptMgr.OnCreatureUpdate(this, diff);
 }
 
 void Creature::StartGroupLoot(Group* group, uint32 timer)

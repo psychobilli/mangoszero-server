@@ -2859,14 +2859,100 @@ bool ScriptMgr::OnItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& 
 #endif
 }
 
+void ScriptMgr::OnDamage(Creature* attacker, Unit* victim, uint32& damage)
+{
+    if (!attacker)
+        return;
+
+#ifdef ENABLE_SD3
+    return SD3::OnDamage(attacker, victim, damage);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::ModHeal(Unit* healer, Creature* receiver, uint32& gain)
+{
+    if (!receiver)
+        return;
+
+#ifdef ENABLE_SD3
+    return SD3::ModHeal(healer, receiver, gain);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::ModifySpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 damage, SpellEntry const* spellInfo, WeaponAttackType attackType, bool crit)
+{
+#ifdef ENABLE_SD3
+    return SD3::CalculateSpellDamageTaken(damageInfo, damage, spellInfo, attackType, crit);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::ModifyMeleeDamage(Unit* playerVictim, uint32 damage, CalcDamageInfo* damageInfo, WeaponAttackType attackType)
+{
+#ifdef ENABLE_SD3
+    return SD3::CalculateMeleeDamage(playerVictim, damage, damageInfo, attackType);
+#else
+    return;
+#endif
+}
+
 void ScriptMgr::SetInitialWorldSettings()
 {
+#ifdef ENABLE_SD3
     return SD3::SetInitialWorldSettings();
+#else
+    return;
+#endif
 }
 
 void ScriptMgr::OnPlayerLogin(Player* pPlayer, bool firstLogin)
 {
+#ifdef ENABLE_SD3
     return SD3::OnPlayerLogin(pPlayer, firstLogin);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::OnPlayerEnter(Map* map, Player* player)
+{
+#ifdef ENABLE_SD3
+    return SD3::OnPlayerEnterAll(map, player);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::OnPlayerLeave(Map* map, Player* player)
+{
+#ifdef ENABLE_SD3
+    return SD3::OnPlayerLeaveAll(map, player);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::Creature_SelectLevel(CreatureInfo* const creatureTemplate, Creature* creature)
+{
+#ifdef ENABLE_SD3
+    return SD3::Creature_SelectLevel(creatureTemplate, creature);
+#else
+    return;
+#endif
+}
+
+void ScriptMgr::OnCreatureUpdate(Creature* pCreature, uint32 diff)
+{
+#ifdef ENABLE_SD3
+    return SD3::OnAllCreatureUpdate(pCreature, diff);
+#else
+    return;
+#endif
 }
 
 bool ScriptMgr::OnAreaTrigger(Player* pPlayer, AreaTriggerEntry const* atEntry)

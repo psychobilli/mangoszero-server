@@ -359,6 +359,7 @@ bool Map::Add(Player* player)
     sEluna->OnMapChanged(player);
     sEluna->OnPlayerEnter(this, player);
 #endif /* ENABLE_ELUNA */
+    sScriptMgr.OnPlayerEnter(this, player);
 
     if (i_data)
     {
@@ -739,7 +740,8 @@ void Map::Remove(Player* player, bool remove)
         sLog.outError("Map::Remove() i_grids was NULL x:%d, y:%d", cell.data.Part.grid_x, cell.data.Part.grid_y);
         return;
     }
-
+    
+    sScriptMgr.OnPlayerLeave(this, player);
     DEBUG_FILTER_LOG(LOG_FILTER_PLAYER_MOVES, "Remove player %s from grid[%u,%u]", player->GetName(), cell.GridX(), cell.GridY());
     NGridType* grid = getNGrid(cell.GridX(), cell.GridY());
     MANGOS_ASSERT(grid != NULL);
