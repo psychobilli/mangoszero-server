@@ -87,6 +87,7 @@ enum ScriptedObjectType
     SCRIPTED_PLAYER         = 14,   //PlayerScript
     SCRIPTED_MAP_ALL        = 15,   //AllMapScript
     SCRIPTED_CREATURE_ALL   = 16,   //AllCreatureScript
+    SCRIPTED_LOOT           = 17,   //LootScript
     SCRIPTED_MAX_TYPE
 };
 
@@ -690,6 +691,8 @@ class ScriptMgr
         void ModifyMeleeDamage(Unit* playerVictim, uint32 damage, CalcDamageInfo* damageInfo, WeaponAttackType attackType);
         void SetInitialWorldSettings();
         void OnPlayerLogin(Player* pPlayer, bool firstLogin);
+        uint8 FillQuestLoot(Player* pPlayer, LootItem item);
+        bool RemoveQuestLoot(Player* pPlayer);
         void OnPlayerEnter(Map* map, Player* player);
         void OnPlayerLeave(Map* map, Player* player);
         void Creature_SelectLevel(CreatureInfo* const creatureTemplate, Creature* creature);

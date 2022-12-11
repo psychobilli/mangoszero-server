@@ -2919,6 +2919,24 @@ void ScriptMgr::OnPlayerLogin(Player* pPlayer, bool firstLogin)
 #endif
 }
 
+uint8 ScriptMgr::FillQuestLoot(Player* pPlayer, LootItem item)
+{
+#ifdef ENABLE_SD3
+    return SD3::ModQuestLoot(pPlayer, item);
+#else
+    return;
+#endif
+}
+
+bool ScriptMgr::RemoveQuestLoot(Player* pPlayer)
+{
+#ifdef ENABLE_SD3
+    return SD3::ClearModQuestLoot(pPlayer);
+#else
+    return;
+#endif
+}
+
 void ScriptMgr::OnPlayerEnter(Map* map, Player* player)
 {
 #ifdef ENABLE_SD3
