@@ -660,6 +660,7 @@ QuestItemList* Loot::FillQuestLoot(Player* player)
             {
                 break;
             }
+            item.count += sScriptMgr.FillQuestLoot(player, item);
         }
     }
     if (ql->empty())
@@ -769,6 +770,7 @@ void Loot::NotifyQuestItemRemoved(uint8 questIndex)
 
                 if (j < pql.size())
                 {
+                    sScriptMgr.RemoveQuestLoot(pl);
                     pl->SendNotifyLootItemRemoved(items.size() + j);
                 }
             }

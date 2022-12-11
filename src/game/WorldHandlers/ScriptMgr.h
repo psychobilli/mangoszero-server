@@ -28,6 +28,8 @@
 #include "Common.h"
 #include "ObjectGuid.h"
 #include "DBCEnums.h"
+#include "Unit.h"
+#include "Creature.h"
 #include <ace/Atomic_Op.h>
 #include <ace/Thread_Mutex.h>
 #include <ace/Guard_T.h>
@@ -81,6 +83,11 @@ enum ScriptedObjectType
     SCRIPTED_INSTANCE       = 10,   //InstanceScript
     SCRIPTED_CONDITION      = 11,   //ConditionScript
     SCRIPTED_ACHIEVEMENT    = 12,   //AchievementScript
+    SCRIPTED_WORLD          = 13,   //WorldScript
+    SCRIPTED_PLAYER         = 14,   //PlayerScript
+    SCRIPTED_MAP_ALL        = 15,   //AllMapScript
+    SCRIPTED_CREATURE_ALL   = 16,   //AllCreatureScript
+    SCRIPTED_LOOT           = 17,   //LootScript
     SCRIPTED_MAX_TYPE
 };
 
@@ -678,6 +685,18 @@ class ScriptMgr
         bool OnGameObjectUse(Player* pPlayer, GameObject* pGameObject);
         bool OnGameObjectUse(Unit* pUnit, GameObject* pGameObject);
         bool OnItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& targets);
+        void OnDamage(Creature* attacker, Unit* victim, uint32& damage);
+        void ModHeal(Unit* healer, Creature* receiver, uint32& gain);
+        void ModifySpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 damage, SpellEntry const* spellInfo, WeaponAttackType attackType, bool crit);
+        void ModifyMeleeDamage(Unit* playerVictim, uint32 damage, CalcDamageInfo* damageInfo, WeaponAttackType attackType);
+        void SetInitialWorldSettings();
+        void OnPlayerLogin(Player* pPlayer, bool firstLogin);
+        uint8 FillQuestLoot(Player* pPlayer, LootItem item);
+        bool RemoveQuestLoot(Player* pPlayer);
+        void OnPlayerEnter(Map* map, Player* player);
+        void OnPlayerLeave(Map* map, Player* player);
+        void Creature_SelectLevel(CreatureInfo* const creatureTemplate, Creature* creature);
+        void OnCreatureUpdate(Creature* pCreature, uint32 diff);
         bool OnAreaTrigger(Player* pPlayer, AreaTriggerEntry const* atEntry);
         bool OnProcessEvent(uint32 eventId, Object* pSource, Object* pTarget, bool isStart);
         bool OnEffectDummy(Unit* pCaster, uint32 spellId, SpellEffectIndex effIndex, Unit* pTarget, ObjectGuid originalCasterGuid);

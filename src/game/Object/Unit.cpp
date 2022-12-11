@@ -626,6 +626,7 @@ uint32 Unit::DealDamage(Unit* pVictim, uint32 damage, CleanDamage const* cleanDa
 
         return 0;
     }
+    sScriptMgr.OnDamage(this->ToCreature(), pVictim, damage);
 
     DEBUG_FILTER_LOG(LOG_FILTER_DAMAGE, "DealDamageStart");
 
@@ -1599,6 +1600,7 @@ void Unit::CalculateSpellDamage(SpellNonMeleeDamage* damageInfo, int32 damage, S
         }
         break;
     }
+    sScriptMgr.ModifySpellDamageTaken(damageInfo, damage, spellInfo, attackType, crit);
 
     // damage mitigation
     if (damage > 0)
@@ -1727,7 +1729,8 @@ void Unit::CalculateMeleeDamage(Unit* pVictim, CalcDamageInfo* damageInfo, Weapo
     // Add melee damage bonus
     damage = MeleeDamageBonusDone(damageInfo->target, damage, damageInfo->attackType);
     damage = damageInfo->target->MeleeDamageBonusTaken(this, damage, damageInfo->attackType);
-
+    
+    sScriptMgr.ModifyMeleeDamage(damageInfo->target, damage, damageInfo, attackType);
     // Calculate armor reduction
     if (damageInfo->damageSchoolMask < 2)
     {
@@ -6306,6 +6309,7 @@ void Unit::UnsummonAllTotems()
 
 int32 Unit::DealHeal(Unit* pVictim, uint32 addhealth, SpellEntry const* spellProto, bool critical)
 {
+    sScriptMgr.ModHeal(this, pVictim->ToCreature(), (uint32&)addhealth);
     int32 gain = pVictim->ModifyHealth(int32(addhealth));
 
     Unit* unit = this;
