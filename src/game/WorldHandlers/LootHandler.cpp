@@ -187,6 +187,7 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recv_data)
             {
                 loot->NotifyQuestItemRemoved(qitem->index);
             }
+            sScriptMgr.RemoveQuestLoot(player);
         }
         else
         {

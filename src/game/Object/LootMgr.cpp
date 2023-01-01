@@ -770,7 +770,6 @@ void Loot::NotifyQuestItemRemoved(uint8 questIndex)
 
                 if (j < pql.size())
                 {
-                    sScriptMgr.RemoveQuestLoot(pl);
                     pl->SendNotifyLootItemRemoved(items.size() + j);
                 }
             }
